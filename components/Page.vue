@@ -21,13 +21,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { TaskModel } from '~/src/domain/models/task-model'
-import { ListTasks } from '~/src/application/usecases/list-tasks'
-import { ReplaceTask } from '~/src/application/usecases/replace-task'
-import { RemoveTask } from '~/src/application/usecases/remove-task'
+
 import { CreateTask } from '~/src/application/usecases/create-task'
-import { TaskRepository } from '~/src/interfaces/repositories/task-repository'
+import { ListTasks } from '~/src/application/usecases/list-tasks'
+import { RemoveTask } from '~/src/application/usecases/remove-task'
+import { ReplaceTask } from '~/src/application/usecases/replace-task'
+import { TaskModel } from '~/src/domain/models/task-model'
 import { api } from '~/src/interfaces/api'
+import { TaskRepository } from '~/src/interfaces/repositories/task-repository'
 
 export default Vue.extend({
   async fetch(): Promise<void> {

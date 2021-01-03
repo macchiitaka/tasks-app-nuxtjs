@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
+
 import { TaskModel } from '~/src/domain/models/task-model'
 
 export default Vue.extend({
