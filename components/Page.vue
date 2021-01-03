@@ -3,7 +3,7 @@
     <h1>Tasks</h1>
     <NewTaskForm :on-submit="handleCrateTask" />
     <div class="listWrapper">
-      <p v-if="pending">Loading...</p>
+      <p v-if="$fetchState.pending">Loading...</p>
       <ul v-else class="list">
         <TaskLi
           v-for="task of tasks"
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
 import { TaskModel } from '~/src/domain/models/task-model'
 import { ListTasks } from '~/src/application/usecases/list-tasks'
 import { ReplaceTask } from '~/src/application/usecases/replace-task'
@@ -29,12 +29,8 @@ import { CreateTask } from '~/src/application/usecases/create-task'
 import { TaskRepository } from '~/src/interfaces/repositories/task-repository'
 import { api } from '~/src/interfaces/api'
 
-@Component
-export default class Page extends Vue {
-  tasks: TaskModel[] = []
-  pending: boolean = true
-
-  async mounted() {
+export default Vue.extend({
+  async fetch(): Promise<void> {
     const res = await new ListTasks(new TaskRepository(api)).execute()
 
     if (!res.success) {
@@ -42,87 +38,92 @@ export default class Page extends Vue {
     }
 
     this.tasks = res.data
-    this.pending = false
-  }
+  },
+  fetchOnServer: false,
+  data() {
+    const tasks: TaskModel[] = []
 
-  private async fetchTasks(): Promise<void> {
-    const res = await new ListTasks(new TaskRepository(api)).execute()
-
-    if (!res.success) {
-      return
+    return {
+      tasks,
     }
+  },
+  methods: {
+    async fetchTasks(): Promise<void> {
+      const res = await new ListTasks(new TaskRepository(api)).execute()
 
-    this.tasks = res.data
-  }
+      if (!res.success) {
+        return
+      }
 
-  async handleCrateTask(title: string): Promise<void> {
-    const tempId = Math.random()
-    const now = new Date()
+      this.tasks = res.data
+    },
+    async handleCrateTask(title: TaskModel['title']): Promise<void> {
+      const tempId = Math.random()
+      const now = new Date()
 
-    const newTask: TaskModel = {
-      id: tempId,
-      title,
-      done: false,
-      createdAt: now,
-      updatedAt: now,
-    }
+      const newTask: TaskModel = {
+        id: tempId,
+        title,
+        done: false,
+        createdAt: now,
+        updatedAt: now,
+      }
 
-    this.tasks = [newTask, ...this.tasks]
+      this.tasks = [newTask, ...this.tasks]
 
-    const res = await new CreateTask(new TaskRepository(api)).execute(title)
+      const res = await new CreateTask(new TaskRepository(api)).execute(title)
 
-    if (!res.success) {
-      await this.fetchTasks()
-      return
-    }
+      if (!res.success) {
+        await this.fetchTasks()
+        return
+      }
 
-    this.tasks = this.tasks.map((task) =>
-      task.id === tempId ? res.data : task,
-    )
-  }
+      this.tasks = this.tasks.map((task) =>
+        task.id === tempId ? res.data : task,
+      )
+    },
+    async handleChangeDone(id: TaskModel['id']): Promise<void> {
+      this.tasks = this.tasks.map((task) => {
+        if (task.id !== id) {
+          return task
+        }
 
-  async handleChangeDone(id: TaskModel['id']): Promise<void> {
-    this.tasks = this.tasks.map((task) => {
-      if (task.id !== id) {
+        return {
+          ...task,
+          done: !task.done,
+        }
+      })
+
+      const task = this.tasks.find((task) => task.id === id)
+
+      if (!task) {
         return task
       }
 
-      return {
-        ...task,
-        done: !task.done,
+      const res = await new ReplaceTask(new TaskRepository(api)).execute({
+        id: task.id,
+        title: task.title,
+        done: task.done,
+      })
+
+      if (!res.success) {
+        await this.fetchTasks()
+        return
       }
-    })
 
-    const task = this.tasks.find((task) => task.id === id)
+      this.tasks = this.tasks.map((task) => (task.id === id ? res.data : task))
+    },
+    async handleDeleteTask(id: TaskModel['id']): Promise<void> {
+      this.tasks = this.tasks.filter((task) => task.id !== id)
 
-    if (!task) {
-      return task
-    }
+      const res = await new RemoveTask(new TaskRepository(api)).execute(id)
 
-    const res = await new ReplaceTask(new TaskRepository(api)).execute({
-      id: task.id,
-      title: task.title,
-      done: task.done,
-    })
-
-    if (!res.success) {
-      await this.fetchTasks()
-      return
-    }
-
-    this.tasks = this.tasks.map((task) => (task.id === id ? res.data : task))
-  }
-
-  async handleDeleteTask(id: TaskModel['id']): Promise<void> {
-    this.tasks = this.tasks.filter((task) => task.id !== id)
-
-    const res = await new RemoveTask(new TaskRepository(api)).execute(id)
-
-    if (!res.success) {
-      await this.fetchTasks()
-    }
-  }
-}
+      if (!res.success) {
+        await this.fetchTasks()
+      }
+    },
+  },
+})
 </script>
 
 <style>

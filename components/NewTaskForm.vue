@@ -16,25 +16,38 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import Vue, { PropOptions } from 'vue'
+import { TaskModel } from '~/src/domain/models/task-model'
 
-@Component
-export default class NewTaskForm extends Vue {
-  @Prop({ required: true })
-  onSubmit!: (title: string) => void
+export default Vue.extend({
+  props: (() => {
+    const onSubmit: PropOptions<(title: TaskModel['title']) => void> = {
+      type: Function,
+      required: true,
+    }
 
-  title: string = ''
-
-  get maxLength(): number {
-    return 2 ** 16
-  }
-
-  handleSubmit(): void {
-    const title = this.title
-    this.title = ''
-    this.onSubmit(title)
-  }
-}
+    return {
+      onSubmit,
+    }
+  })(),
+  data() {
+    return {
+      title: '',
+    }
+  },
+  computed: {
+    maxLength(): number {
+      return 2 ** 16
+    },
+  },
+  methods: {
+    handleSubmit(): void {
+      const title = this.title
+      this.title = ''
+      this.onSubmit(title)
+    },
+  },
+})
 </script>
 
 <style>

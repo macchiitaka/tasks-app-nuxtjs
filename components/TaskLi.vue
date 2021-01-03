@@ -15,36 +15,55 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import Vue, { PropOptions } from 'vue'
 import { TaskModel } from '~/src/domain/models/task-model'
 
-@Component
-export default class TaskLi extends Vue {
-  @Prop({ required: true })
-  id!: TaskModel['id']
-
-  @Prop({ required: true })
-  title!: TaskModel['title']
-
-  @Prop({ required: true })
-  done!: TaskModel['done']
-
-  @Prop({ required: true })
-  onChangeDone!: (id: TaskModel['id']) => void
-
-  @Prop({ required: true })
-  onDeleteTask!: (id: TaskModel['id']) => void
-
-  handleChangeDone(): void {
-    this.onChangeDone(this.id)
-  }
-
-  handleClickDelete(): void {
-    if (confirm(`Are you OK to delete "${this.title || 'NO TITLE'}"`)) {
-      this.onDeleteTask(this.id)
+export default Vue.extend({
+  props: (() => {
+    const id: PropOptions<TaskModel['id']> = {
+      type: Number,
+      required: true,
     }
-  }
-}
+
+    const title: PropOptions<TaskModel['title']> = {
+      type: String,
+      required: true,
+    }
+
+    const done: PropOptions<TaskModel['done']> = {
+      type: Boolean,
+      required: true,
+    }
+
+    const onChangeDone: PropOptions<(id: TaskModel['id']) => void> = {
+      type: Function,
+      required: true,
+    }
+
+    const onDeleteTask: PropOptions<(id: TaskModel['id']) => void> = {
+      type: Function,
+      required: true,
+    }
+
+    return {
+      id,
+      title,
+      done,
+      onChangeDone,
+      onDeleteTask,
+    }
+  })(),
+  methods: {
+    handleChangeDone(): void {
+      this.onChangeDone(this.id)
+    },
+    handleClickDelete(): void {
+      if (confirm(`Are you OK to delete "${this.title || 'NO TITLE'}"`)) {
+        this.onDeleteTask(this.id)
+      }
+    },
+  },
+})
 </script>
 
 <style>
