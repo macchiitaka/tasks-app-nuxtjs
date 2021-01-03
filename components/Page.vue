@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { TaskModel } from '~/src/domain/models/task-model'
 import { ListTasks } from '~/src/application/usecases/list-tasks'
 import { ReplaceTask } from '~/src/application/usecases/replace-task'
@@ -31,9 +31,6 @@ import { api } from '~/src/interfaces/api'
 
 @Component
 export default class Page extends Vue {
-  @Prop({ required: true })
-  onSubmit!: (title: string) => void
-
   tasks: TaskModel[] = []
   pending: boolean = true
 
