@@ -1,7 +1,7 @@
 # tasks-app-nuxtjs
 
 [Tasks] Web app using Nuxt.js + TypeScript.
-[Demo](https://tasks-app-nextjs.vercel.app/)
+[Demo](https://tasks-app-nuxtjs.vercel.app/)
 
 ## Technologies
 
