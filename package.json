@@ -21,7 +21,7 @@
     "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
     "lint:type-check": "tsc -p . --noEmit",
     "start": "nuxt-ts start",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "husky": {
     "hooks": {
