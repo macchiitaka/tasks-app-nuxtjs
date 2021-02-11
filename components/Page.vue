@@ -31,6 +31,13 @@ import { api } from '~/src/interfaces/api'
 import { TaskRepository } from '~/src/interfaces/repositories/task-repository'
 
 export default Vue.extend({
+  data() {
+    const tasks: TaskModel[] = []
+
+    return {
+      tasks,
+    }
+  },
   async fetch(): Promise<void> {
     const res = await new ListTasks(new TaskRepository(api)).execute()
 
@@ -41,13 +48,6 @@ export default Vue.extend({
     this.tasks = res.data
   },
   fetchOnServer: false,
-  data() {
-    const tasks: TaskModel[] = []
-
-    return {
-      tasks,
-    }
-  },
   methods: {
     async fetchTasks(): Promise<void> {
       const res = await new ListTasks(new TaskRepository(api)).execute()
