@@ -67,7 +67,7 @@ export default Vue.extend({
 })
 </script>
 
-<style>
+<style scoped>
 .item {
   display: grid;
   grid-template: 'input . text . delele' 32px / max-content 8px 1fr 8px max-content;

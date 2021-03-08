@@ -51,7 +51,7 @@ export default Vue.extend({
 })
 </script>
 
-<style>
+<style scoped>
 .form {
   display: grid;
   grid-template: 'input . submit' 32px / 1fr 8px max-content;

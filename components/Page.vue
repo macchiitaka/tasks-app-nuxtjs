@@ -127,7 +127,7 @@ export default Vue.extend({
 })
 </script>
 
-<style>
+<style scoped>
 .container {
   padding: 8px 32px;
 }
