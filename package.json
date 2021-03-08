@@ -6,8 +6,8 @@
   "license": "MIT",
   "author": "macchiitaka <zxcvbnmtacashi@gmail.com>",
   "scripts": {
-    "build": "nuxt-ts build",
-    "dev": "nuxt-ts",
+    "build": "nuxt build",
+    "dev": "nuxt",
     "fmt": "run-p fmt:**",
     "fmt:js": "eslint --ext .js,.vue --fix --ignore-path .gitignore .",
     "fmt:json": "prettier --write '**/*.json'",
@@ -15,13 +15,13 @@
     "fmt:package-json": "sort-package-json",
     "fmt:style": "stylelint **/*.{vue,css} --fix --ignore-path .gitignore",
     "fmt:yml": "prettier --write '**/*.yml'",
-    "generate": "nuxt-ts generate",
+    "generate": "nuxt generate",
     "postinstall": "is-ci || husky install;",
     "lint": "yarn lint:js && yarn lint:style",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
     "lint:type-check": "tsc -p . --noEmit",
-    "start": "nuxt-ts start",
+    "start": "nuxt start",
     "test": "jest --passWithNoTests"
   },
   "lint-staged": {
@@ -29,7 +29,6 @@
     "*.{js,vue}": "eslint"
   },
   "dependencies": {
-    "@nuxt/typescript-runtime": "2.1.0",
     "axios": "0.21.1",
     "core-js": "3.9.1",
     "normalize.css": "8.0.1",
