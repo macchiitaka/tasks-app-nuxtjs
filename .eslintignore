@@ -1,0 +1,6 @@
+/node_modules
+/dist
+/.nuxt
+/*rc.js
+/*.config.js
+*.d.ts
