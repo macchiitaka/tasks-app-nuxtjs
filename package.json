@@ -13,7 +13,7 @@
     "fmt:json": "prettier --write '**/*.json'",
     "fmt:md": "prettier --write '**/*.md'",
     "fmt:package-json": "sort-package-json",
-    "fmt:style": "stylelint **/*.{vue,css} --fix --ignore-path .gitignore",
+    "fmt:style": "stylelint \"**/*.{vue,css}\" --fix --ignore-path .gitignore",
     "fmt:yml": "prettier --write '**/*.yml'",
     "generate": "nuxt-ts generate",
     "postinstall": "is-ci || husky install;",
