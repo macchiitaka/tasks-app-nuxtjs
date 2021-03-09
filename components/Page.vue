@@ -1,11 +1,11 @@
 <template>
   <main class="container">
     <h1>Tasks</h1>
-    <NewTaskForm :on-submit="handleCrateTask" />
+    <LazyNewTaskForm :on-submit="handleCrateTask" />
     <div class="listWrapper">
       <p v-if="$fetchState.pending">Loading...</p>
       <ul v-else class="list">
-        <TaskLi
+        <LazyTaskLi
           v-for="task of tasks"
           :id="task.id"
           :key="task.id"
