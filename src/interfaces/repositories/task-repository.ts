@@ -6,14 +6,18 @@ import { API } from '../api'
 
 type TaskRecord = {
   id: number
+  // eslint-disable-next-line camelcase
   created_at: string // RFC3339
+  // eslint-disable-next-line camelcase
   updated_at: string // RFC3339
   title: string
   done: boolean
 }
 
 const convertToModel = ({
+  // eslint-disable-next-line camelcase
   created_at,
+  // eslint-disable-next-line camelcase
   updated_at,
   ...rest
 }: TaskRecord): TaskModel => ({
@@ -96,7 +100,7 @@ export class TaskRepository implements TaskRepositoryInterface {
 
   public readonly replace: TaskRepositoryInterface['replace'] = async (
     id,
-    data
+    data,
   ) => {
     try {
       return {
@@ -112,7 +116,7 @@ export class TaskRepository implements TaskRepositoryInterface {
   }
 
   public readonly delete: TaskRepositoryInterface['delete'] = async (
-    id: number
+    id: number,
   ) => {
     try {
       await this.api.deleteTask({ id })

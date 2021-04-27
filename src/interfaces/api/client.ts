@@ -2,7 +2,9 @@ import { http } from './http'
 
 type TaskRecord = {
   id: number
+  // eslint-disable-next-line camelcase
   created_at: string // RFC3339
+  // eslint-disable-next-line camelcase
   updated_at: string // RFC3339
   title: string
   done: boolean
