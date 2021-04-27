@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, default as axios } from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import { Primitive } from 'utility-types'
 
 const DOMAIN = process.env.DOMAIN ?? 'https://tasks-api-express.herokuapp.com'
