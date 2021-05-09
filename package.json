@@ -32,10 +32,10 @@
     "axios": "0.21.1",
     "core-js": "3.12.1",
     "normalize.css": "8.0.1",
-    "nuxt": "2.15.4"
+    "nuxt": "2.15.5"
   },
   "devDependencies": {
-    "@nuxt/types": "2.15.4",
+    "@nuxt/types": "2.15.5",
     "@nuxt/typescript-build": "2.1.0",
     "@nuxtjs/eslint-config": "6.0.0",
     "@nuxtjs/eslint-config-typescript": "6.0.0",
