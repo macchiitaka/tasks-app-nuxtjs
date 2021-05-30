@@ -1999,11 +1999,12 @@
   resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
   integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
 
-"@types/stylelint@9.10.1":
-  version "9.10.1"
-  resolved "https://registry.yarnpkg.com/@types/stylelint/-/stylelint-9.10.1.tgz#211832381e43fd0774217b59f02ab389d82643ea"
-  integrity sha512-au+n/CjGixNopJmh51GeZSkqf/ahwOBkzcvizHPe3flfwWag0T+/L7uHD0Hjx7ZhmXGFSEwOCqEybD4domcyRw==
+"@types/stylelint@13.13.0":
+  version "13.13.0"
+  resolved "https://registry.yarnpkg.com/@types/stylelint/-/stylelint-13.13.0.tgz#8e0d99f1133b235f6ac629a8e6162e61e6854e34"
+  integrity sha512-/PxG8arC6lNjOGQ2QkWr60v9yQ6vnyOdDmyoM8ysU1UCdTm71+IztrHm5jCTJob9/HTqGNcemwsCDo0mjdjSzA==
   dependencies:
+    globby "11.x.x"
     postcss "7.x.x"
 
 "@types/tapable@^1", "@types/tapable@^1.0.5":
@@ -5584,7 +5585,7 @@ globby@10.0.0:
     merge2 "^1.2.3"
     slash "^3.0.0"
 
-globby@^11.0.1, globby@^11.0.3:
+globby@11.x.x, globby@^11.0.1, globby@^11.0.3:
   version "11.0.3"
   resolved "https://registry.yarnpkg.com/globby/-/globby-11.0.3.tgz#9b1f0cb523e171dd1ad8c7b2a9fb4b644b9593cb"
   integrity sha512-ffdmosjA807y7+lA1NM0jELARVmYul/715xiILEjo3hBLPTcirgQNnXECn5g3mtR8TOLCVbkfua1Hpen25/Xcg==
